@@ -1,14 +1,39 @@
 from app.models.base_model import BaseModel
-from sqlalchemy import Column, String, Float, DateTime, Integer
+from sqlalchemy import Column, String, Float, DateTime, Integer, ForeignKey
 from datetime import datetime
+from sqlalchemy.orm import relationship, Session
 
 class User(BaseModel):
     __tablename__ = "users"
     
-    id: int = Column(Integer, primary_key=True, index=True)
-    name: str = Column(String(100), index=True)
-    email: str = Column(String(255), index=True)
-    password: str = Column(String(255), index=True)
-    status: int = Column(Integer, index=True, default=1)
-    created_at: datetime = Column(DateTime, index=True, default=datetime.now)
-    updated_at: datetime = Column(DateTime, index=True, default=datetime.now)
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100), index=True)
+    email = Column(String(255), index=True)
+    password = Column(String(255), index=True)
+    role_id = Column(Integer, ForeignKey("role.id"), nullable=True)
+    status = Column(Integer, index=True, default=1)
+    created_at = Column(DateTime, index=True, default=datetime.now)
+    updated_at = Column(DateTime, index=True, default=datetime.now)
+
+    role = relationship("Role", backref="users")
+
+
+def seed_admin(db: Session):
+    """Create default admin user if not exists"""
+    from app.core.security import hash_password 
+    
+    existing_admin = db.query(User).filter(User.email == "admin@yopmail.com").first()
+    
+    if not existing_admin:
+        admin = User(
+            name="Admin",
+            email="admin@yopmail.com",
+            password=hash_password("admin"),
+            role_id=1,  # admin role
+            status=1
+        )
+        db.add(admin)
+        db.commit()
+        print("✓ Admin user created: admin@example.com / admin123")
+    else:
+        print("✓ Admin user already exists, skipping seed.")

@@ -1,11 +1,19 @@
 from fastapi import FastAPI
-from app.db.base import get_db
-from app.db.base import engine
+from app.db.base import get_db, engine, SessionLocal
 from app.models import Base
 from app.routers.product_router import router as product_router
 from app.routers.user_router import router as user_router_router
+from app.models.role_model import seed_roles
+from app.models.user_model import seed_admin
 
+# Create tables and seed data on startup
 Base.metadata.create_all(bind=engine)
+db = SessionLocal()
+try:
+    seed_roles(db)
+    seed_admin(db)
+finally:
+    db.close()
 
 app = FastAPI(
     title="CLASS A",

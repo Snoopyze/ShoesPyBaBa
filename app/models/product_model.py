@@ -5,8 +5,8 @@ import datetime
 class Product(BaseModel):
     __tablename__ = "products"
     
-    id: int = Column(Integer, primary_key=True, index=True)
-    name: str = Column(String(255), index=True)
-    description: str = Column(String(1000), index=True)
-    price: float = Column(Float, index=True)
-    deleted_at: datetime.datetime = Column(DateTime, index=True, nullable=True)
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), index=True)
+    description = Column(String(500))  # Removed index to avoid key length limit
+    price = Column(Float, index=True)
+    deleted_at = Column(DateTime, index=True, nullable=True)

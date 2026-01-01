@@ -14,4 +14,5 @@ class Base:
 
 class BaseModel(Base):
     __abstract__ = True
-    id: int = Column(Integer, primary_key=True, index=True)
+    __allow_unmapped__ = True
+    id = Column(Integer, primary_key=True, index=True)

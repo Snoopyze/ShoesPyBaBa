@@ -2,7 +2,9 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from app.core.config import settings
 import jwt
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+# Use argon2 (Windows-friendly) with bcrypt as fallback
+pwd_context = CryptContext(schemes=["argon2", "bcrypt"], deprecated="auto")
 
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)

@@ -10,6 +10,7 @@
 ### 1. Install Python Environment
 
 If using Conda:
+
 ```bash
 # Install conda
 # Install Python 3.9.6
@@ -41,6 +42,8 @@ Add your environment variables to the `.env` file.
 ### 5. Run the Application
 
 ```bash
+python run.py
+
+# Or using FastAPI CLI:
 fastapi dev main.py
 ```
-
