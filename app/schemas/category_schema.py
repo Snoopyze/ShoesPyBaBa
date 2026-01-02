@@ -1,0 +1,24 @@
+from pydantic import BaseModel, ConfigDict
+from typing import Optional
+from datetime import datetime
+
+
+class CategorySchema(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    
+    id: int
+    name: str
+    description: Optional[str] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+
+class CreateCategorySchema(BaseModel):
+    name: str
+    description: Optional[str] = None
+
+
+class UpdateCategorySchema(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+

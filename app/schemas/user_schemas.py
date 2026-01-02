@@ -1,19 +1,25 @@
 from pydantic import BaseModel, ConfigDict
 from pydantic import field_validator
+from typing import Optional
 import re
 
 class UserSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     
     id: int
-    name: str
+    full_name: str
     email: str
+    gender: Optional[str] = None
+    phone_number: Optional[str] = None
+    role_id: Optional[int] = None
     status: int
 
 class RegisterUserSchema(BaseModel):
-    name: str
+    full_name: str
     email: str
     password: str
+    gender: Optional[str] = None
+    phone_number: Optional[str] = None
     
     @field_validator('email')
     @classmethod

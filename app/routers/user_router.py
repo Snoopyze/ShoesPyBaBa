@@ -13,7 +13,7 @@ router = APIRouter()
 @router.post("/register", tags=["users"], description="Register a new user", response_model=DataResponse[UserSchema])
 async def register_user(data: RegisterUserSchema, db: Session = Depends(get_db)):
     password = hash_password(data.password)
-    user = User(name=data.name, email=data.email, password=password)
+    user = User(full_name=data.full_name, email=data.email, password=password, gender=data.gender, phone_number=data.phone_number)
     
     try:
         db.add(user)

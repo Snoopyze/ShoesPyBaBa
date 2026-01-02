@@ -1,5 +1,6 @@
 from app.models.base_model import BaseModel
-from sqlalchemy import Column, String, Float, DateTime, Integer
+from sqlalchemy import Column, String, Float, DateTime, Integer, ForeignKey, JSON
+from sqlalchemy.orm import relationship
 import datetime
 
 class Product(BaseModel):
@@ -9,4 +10,12 @@ class Product(BaseModel):
     name = Column(String(255), index=True)
     description = Column(String(500))  # Removed index to avoid key length limit
     price = Column(Float, index=True)
+    category_id = Column(Integer, ForeignKey("categories.id"), nullable=True, index=True)
+    brand_id = Column(Integer, ForeignKey("brands.id"), nullable=True, index=True)
+    status = Column(String(50), index=True, default="active")  # active, inactive, out_of_stock
+    image_urls = Column(JSON, nullable=True)  # List of image URLs
+    variants = Column(JSON, nullable=True)  # List of ProductVariant objects
     deleted_at = Column(DateTime, index=True, nullable=True)
+    
+    category = relationship("Category", backref="products")
+    brand = relationship("Brand", backref="products")
