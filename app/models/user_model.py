@@ -7,11 +7,11 @@ class User(BaseModel):
     __tablename__ = "users"
     
     id = Column(Integer, primary_key=True, index=True)
-    full_name = Column(String(100), index=True)  # hoVaTen
+    full_name = Column(String(100), index=True)  
     email = Column(String(255), unique=True, index=True)
     password = Column(String(255), index=True)
-    gender = Column(String(20), nullable=True)  # gioiTinh: male, female, other
-    phone_number = Column(String(20), nullable=True, index=True)  # sdt
+    gender = Column(String(20), nullable=True)  
+    phone_number = Column(String(20), nullable=True, index=True) 
     role_id = Column(Integer, ForeignKey("role.id"), nullable=True)
     status = Column(Integer, index=True, default=1)
     created_at = Column(DateTime, index=True, default=datetime.now)
