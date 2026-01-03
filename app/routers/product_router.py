@@ -66,7 +66,7 @@ def search_products(
     max_price: Optional[float] = None,
     sort_by: Optional[str] = None,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    # current_user: User = Depends(get_current_user)
 ):
     service = ProductService(db)
     filters = {
@@ -86,7 +86,7 @@ def search_products(
 def get_product_detail(
     product_id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    # current_user: User = Depends(get_current_user)
 ):
     service = ProductService(db)
     product = service.get_product_detail(product_id)
