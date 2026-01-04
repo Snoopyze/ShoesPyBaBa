@@ -47,4 +47,4 @@ class ProductRepository:
         return products, total
     
     def get_by_id(self, product_id: int):
-        return self.db.query(Product).filter(Product.id == product_id, Product.status == 'active').first()
+        return self.db.query(Product).filter(Product.id == product_id, Product.status.in_(['active', 'out_of_stock'])).first()
