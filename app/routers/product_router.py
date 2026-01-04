@@ -77,8 +77,9 @@ def search_products(
     data, pagination = service.get_products(page, size, filters)
     
     return ResponseSchema(
+        code=200,
+        message="Get products success",
         data=data,
-        message="Lấy danh sách sản phẩm thành công",
         pagination=pagination
     )
 
@@ -94,4 +95,4 @@ def get_product_detail(
     if not product:
         raise HTTPException(status_code=404, detail="Sản phẩm không tồn tại")
         
-    return ResponseSchema(data=product, message="Lấy chi tiết thành công")
+    return ResponseSchema(code=200, message="Get detail product success", data=product)

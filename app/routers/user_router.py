@@ -97,7 +97,7 @@ async def refresh_access_token(refresh_token: str):
             raise e
         return DataResponse.custom_response(code="500", message=str(e), data=None)
 
-@router.put("/update-profile", tags=["users"], description="Update user profile", response_model=ResponseSchema[UserProfileResponse])
+@router.put("/update-profile", tags=["users"], description="Update user profile", response_model=DataResponse[UserProfileResponse])
 def update_user_profile(
     data: UserProfileUpdate,
     db: Session = Depends(get_db),
