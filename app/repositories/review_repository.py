@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlachemy import desc
+from sqlalchemy import desc
 from datetime import datetime
 from app.models.review_model import Review
 

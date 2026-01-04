@@ -1,4 +1,4 @@
-from slqalchemy.orm import Session
+from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from app.repositories.review_repository import ReviewRepository
 from app.schemas.review_schema import ReviewCreate, ReviewUpdate
@@ -21,7 +21,7 @@ class ReviewService:
        skip = (page - 1) * size
        reviews, total = self.review_repository.get_by_product_id(product_id, skip, size)
        pagination = PaginationSchema(
-           page=page, size=size, total=total
+           page=page, size=size, total=total,
            total_pages=(total + size - 1) // size
        )
        return reviews, pagination

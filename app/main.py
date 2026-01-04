@@ -4,6 +4,7 @@ from app.db.base import get_db, engine, SessionLocal
 from app.models import Base
 from app.routers.product_router import router as product_router
 from app.routers.user_router import router as user_router_router
+from app.routers.review_router import router as review_router
 from app.models.role_model import seed_roles
 from app.models.user_model import seed_admin
 
@@ -37,6 +38,7 @@ app.add_middleware(
 
 app.include_router(product_router)
 app.include_router(user_router_router)
+app.include_router(review_router)
 
 @app.get("/home")
 async def root():
